@@ -1,0 +1,5 @@
+
+
+<Files ~ "\.(php)$">
+  Allow from all
+</Files>
