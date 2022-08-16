@@ -9,7 +9,9 @@ use App\Models\Debit;
 use Carbon\Carbon;
 Use App\Models\Branch;
 Use App\Models\Ledger;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\DB;
+
 
 class PaymentController extends Controller
 {
@@ -17,64 +19,43 @@ class PaymentController extends Controller
 		
 		$branches = Branch::all();
 		$ledgers = Ledger::all();
-		return view('backend.payment.add-payment',compact('branches','ledgers'));
+        $purchases=Purchase::all();
+		return view('backend.payment.add-payment',compact('branches','ledgers','purchases'));
 	}
     
     //save Record
 
     public function saveRecord(Request $request){
-        $payment_id = Payment::insertGetId([
-            'voucher' => $request->voucher,
-            'date' => $request->date,
-            'branch_id' => $request->branch_id,
-            'note' => $request->note,
+        $this->validate($request,[
+            'voucher' => 'required',
+            'date' => 'required',
+            'branch_id' => 'required',
+            'ledger_id' => 'required',
+            'note' => 'required',
+            'details' => 'required',
+            'amount' => 'required',
             'created_at' => Carbon::now(),
         ]);
-        
-        foreach($request->details as $key=>$value){
-            $saveRecord = [
-                'payment_id' => $payment_id,
-                'ledger_id' => $request->ledger_id[$key],
-                'details' => $request->details[$key],
-                'amount' => $request->amount[$key],
-            ];
+        $paymentData = $request->only(['voucher', 'date', 'branch_id', 'note', 'ledger_id', 'created_at']);
+        $paymentData['date'] = Carbon::parse($paymentData['date'])->format('d/M/Y');
+        $payment = Payment::create($paymentData); 
+            $debitData = $request->only([
+                'payment_id', 
+                'branch_id',
+                'ledger_id',
+                'details',
+                'amount',
+            ]);
+            $debitData['payment_id'] = $payment->id;
             
-            DB::table('paydebits')->insert($saveRecord);
+        Debit::create($debitData); 
+
             
-            
-        }
         $notification = array(
             'message' => 'Payment Added Successfully',
             'alert-type' => 'success',
         );
-        return redirect('/admin/payment/view/'.$payment_id)->with($notification);
-   	 $pay_id = Payment::insertGetId([
-      	'voucher' => $request->voucher,
-      	'date' => $request->date,
-      	'branch_id' => $request->branch_id,
-      	'note' => $request->note,
-      	'created_at' => Carbon::now(),
-   ]);
-
-    	foreach($request->details as $key=>$value){
-    		$saveRecord = [
-    			'payment_id' => $pay_id,
-                'branch_id' => $request->branch_id,
-                'ledger_id' => $request->ledger_id[$key],
-    			'details' => $request->details[$key],
-    			'amount' => $request->amount[$key],
-    			'created_at' => Carbon::now(),
-    		];
-    		
-    	 DB::table('debits')->insert($saveRecord);
-
-    		
-    	}
-    	 $notification = array(
-            'message' => 'Payment Added Successfully',
-            'alert-type' => 'success',
-        );
-    	return redirect('/admin/payment/view/'.$pay_id)->with($notification);
+        return redirect('/admin/payment/view/'.$payment->id)->with($notification);
     }
 
     public function ShowPayment(){

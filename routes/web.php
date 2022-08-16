@@ -86,7 +86,6 @@ Route::prefix('admin/payment/')->group(function(){
 	Route::get('details/delete/{id}', [PaymentController::class, 'deletePaymentDetails']);
 	Route::post('details/add', [PaymentController::class, 'Adddetails'])->name('admin.payment.details.add');
 	Route::post('update/{id}', [PaymentController::class, 'updateDetails']);
-	
 });
 
 //Admin Reciept Setting
@@ -112,6 +111,8 @@ Route::prefix('admin/balance/')->group(function(){
 	Route::get('edit/{id}', [BalanceController::class, 'editBalance']);
 	Route::get('delete/{id}', [BalanceController::class, 'deleteBalance']);
 	Route::post('update/{id}', [BalanceController::class, 'updateBalance']);
+	Route::get('balancesheet', [BalanceController::class, 'balanceSheet'])->name('admin.balance.balancesheet');
+	Route::post('balancesheet', [BalanceController::class, 'generateReport'])->name('admin.balance.generatereport');
 });
 
 //Admin Stock Setting
@@ -154,7 +155,7 @@ Route::prefix('admin/report/')->group(function(){
 // Route::post('admin/form/save', [PaymentController::class, 'saveRecord'])->name('admin.form.save');
 
 Route::prefix('admin/form/save/')->group(function(){
-	// Route::get('purchase', [PurchaseController::class,'saveRecord'])->name('admin.form.save.purchase');
+	Route::get('purchase', [PurchaseController::class,'saveRecord'])->name('admin.form.save.purchase');
 	Route::post('purchase', [PurchaseController::class,'saveRecord'])->name('admin.form.save.purchase');
 
 	// Route::get('show', [PaymentController::class, 'ShowPayment'])->name('admin.payment.show');

@@ -29,6 +29,7 @@
                         <ul aria-expanded="false">
                             <li><a href="{{ route('admin.balance.add') }}">Add Balance</a></li>
                             <li><a href="{{ route('admin.balance.show') }}">All Balance</a></li>
+                            <li><a href="{{ route('admin.balance.balancesheet') }}">Balance Sheet</a></li>
                           
                         </ul>
                     </li>

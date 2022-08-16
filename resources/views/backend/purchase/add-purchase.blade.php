@@ -28,17 +28,9 @@
                     <label class="col-lg-4 col-form-label" for="val-category">Product Name<span class="text-danger">*</span>
                     </label>
                     <div class="col-lg-6">
-                        <!-- <select class="form-control" name="product_name" required>
-                            <option disabled="" selected="" value="">Select one</option>
-                            @foreach($products as $product)
-                            <option value="{{ $product->product_name }}">{{ $product->product_name }}</option>
-                            @endforeach
-                            <input type="text" aria-label="Text input with dropdown button">
-
-                        </select> -->
-                        <select name="name" class="form-control" onchange="if($(this).val()=='customOption')showCustomInput('name')">
+                        <select name="name" class="form-control" onchange="if($(this).val()=='')showCustomInput('name')">
                             <option disabled selected>Select an Option...</option>
-                            <option value="customOption" class="bg-primary text-white ">Type Manually</option>
+                            <option value="" class="bg-primary text-white ">Type Manually</option>
                             @foreach($products as $product)
                             <option value="{{ $product->product_name }}">{{ $product->product_name }}</option>
                             @endforeach
@@ -69,9 +61,9 @@
                         <div class="input-group">
                             <input type="number" class="form-control mr-2" aria-label="Text input with dropdown button" name='quantity_unit'>
                             <div class="input-group-append">
-                                <select name="quantity_type" class="form-control ml-2" onchange="if($(this).val()=='customOption')showCustomInput('quantity_type')">
+                                <select name="quantity_type" class="form-control ml-2" onchange="if($(this).val()=='')showCustomInput('quantity_type')">
                                     <option disabled selected>Select Unit Type...</option>
-                                    <option value="customOption" class="bg-info text-white ">Type Manually</option>
+                                    <option value="" class="bg-info text-white ">Type Manually</option>
                                     @foreach($product_units as $product_unit)
                                     <option value="{{ $product_unit->unit_name }}">{{ $product_unit->unit_name }}</option>
                                     @endforeach

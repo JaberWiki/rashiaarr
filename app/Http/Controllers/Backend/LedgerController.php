@@ -16,22 +16,16 @@ class LedgerController extends Controller
     }
 
     public function StoreLedger(Request $request){
-    	$validateData = $request->validate([
-    		'ledger_name' => 'required',
+
+      $this->validate($request,[
+        'ledger_name' => 'required',
     		'payment' => 'required',
     		'note' => 'required',
-    	],
-    	[
-    		'ledger_name.required' => 'Ledger Name is required',
-    		'payment.required' => 'Plaese select a Payment Method',
-    	]);
+    ]);
 
-        Ledger::insert([
-      	'ledger_name' => $request->ledger_name,
-      	'payment' => $request->payment,
-      	'note' => $request->note,
-      	'created_at' => Carbon::now(),
-   ]);
+    $data = $request->only(['ledger_name', 'payment', 'note']);
+
+    $ledgers = Ledger::create($data);
 
         $notification = array(
             'message' => 'Ledger Added Successfully',
@@ -41,7 +35,7 @@ class LedgerController extends Controller
     }
 
      public function ShowLedgerList(){
-    	$ledgers = Ledger::all();
+    	$ledgers = Ledger::orderBy('created_at', 'DESC')->get();
     	return view('backend.ledger.ledger-list',compact('ledgers'));
     }
 

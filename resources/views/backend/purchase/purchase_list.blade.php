@@ -26,8 +26,7 @@
                                         <th scope="col">Product Name</th>
                                         <th scope="col">Purchase Date</th>
                                         <th scope="col">Price</th>
-                                        <th scope="col">Entry Date</th>
-                                        <!-- <th scope="col">Actions</th> -->
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,17 +34,15 @@
                                     $i = 1;
                                     @endphp
 
-                                    @foreach($purchases as $product)
+                                    @foreach($purchases as $purchase)
                                     <tr>
-                                        <th scope="row">{{ $i++ }}</th>
+                                        
                                         <th scope="row">{{ $i++ }}</th>
                                         <td>{{ $purchase->name }}</td>
                                         <td>{{ $purchase->date }}</td>
                                         <td>{{ $purchase->price }}</td>
-                                        <td>{{ Carbon\Carbon::parse($purchase->created_at)->format('Y-m-d') }}</td>
-
-                                        </td>
-                                        <!-- <td><a href="{{ URL::to('admin/purchase/view/'.$purchase->id) }}" class="btn btn-primary btn-sm">View</a> <a href="{{ URL::to('admin/purchase/delete/'.$purchase->id) }}" id="delete" class="btn btn-success btn-sm">Delete</a> <a href="{{ URL::to('admin/purchase/print/'.$purchase->id) }}" class="btn btn-danger btn-sm">Print</a> <a href="{{ URL::to('admin/purchase/edit/'.$purchase->id) }}" class="btn btn-info btn-sm">Edit</a></td> -->
+                                        
+                                        <td><a href="{{ URL::to('admin/purchase/view/'.$purchase->id) }}" class="btn btn-primary btn-sm">View</a> <a href="{{ URL::to('admin/purchase/delete/'.$purchase->id) }}" id="delete" class="btn btn-success btn-sm">Delete</a> <a href="{{ URL::to('admin/purchase/print/'.$purchase->id) }}" class="btn btn-danger btn-sm">Print</a> <a href="{{ URL::to('admin/purchase/edit/'.$purchase->id) }}" class="btn btn-info btn-sm">Edit</a></td>
                                     </tr>
                                     @endforeach
                                 </tbody>

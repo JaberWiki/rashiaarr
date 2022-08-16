@@ -19,4 +19,8 @@ class Debit extends Model
     {
         return $this->belongsTo('App\Models\Branch');
     }
+    public function payment()
+    {
+        return $this->belongsTo('App\Models\Payment');
+    }
 }

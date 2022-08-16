@@ -77,6 +77,7 @@
      
       <th scope="col">Debit</th>
       <th scope="col">Credit</th>
+      <!-- <th scope="col">Total</th> -->
     </tr>
   </thead>
   <tbody>
@@ -90,7 +91,7 @@
          <td>{{ $debitlink->created_at }}</td>
         <td>{{ $debitlink->details }}</td>
         <td>{{ $debitlink->amount }}</td>
-        <td>0.00</td>
+        <td></td>
       </tr>
       
     @endforeach

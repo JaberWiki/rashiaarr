@@ -15,6 +15,9 @@ class Payment extends Model
         return $this->belongsTo('App\Models\Branch');
     }
 
-    
+    public function debit()
+    {
+        return $this->belongsTo('App\Models\Debit');
+    }
 
 }

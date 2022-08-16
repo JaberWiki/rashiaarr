@@ -75,15 +75,15 @@
                 <tbody>
                     <tr>
                         <td id="col0">
-                            <select class="form-control" name="ledger_id[]" required>
+                            <select class="form-control" name="ledger_id" required>
                                 <option disabled="" selected="" value="">Select one</option>
                                 @foreach($ledgers as $ledger)
                                 <option value="{{ $ledger->id }}">{{ $ledger->ledger_name }}</option>
                                 @endforeach
                             </select>
                         </td>
-                        <td id="col1"><input type="text" class="form-control" name="details[]" placeholder="Cost Details" required></td>
-                        <td id="col2"><input type="tel" class="form-control" name="amount[]" placeholder="Enter amount" required></td>
+                        <td id="col1"><input type="text" class="form-control" name="details" placeholder="Cost Details" required></td>
+                        <td id="col2"><input type="tel" class="form-control" name="amount" placeholder="Enter amount" required></td>
                     </tr>
                 </tbody>
             </table>
